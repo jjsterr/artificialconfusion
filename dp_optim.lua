@@ -47,14 +47,14 @@ local x, dl_dx = cnn:getParameters()
 local optim_state = {learningRate = 0.01, stepsize = 0.01}
 
 -- things needed by the dp package
-local train = dp.Optimizer{
+train = dp.Optimizer{
     loss = nn.ModuleCriterion(nn.ClassNLLCriterion(), nil, nn.Convert()),
     callback = function(model, report) -- this is where we glue optim and dp together
         feval = function(x_new)
             if x ~= x_new then
                 x:copy(x_new)
             end
-            return model.err, dl_dx
+            return train.err, dl_dx
         end
         optimize(feval, x, optim_state)
         dl_dx:zero()
