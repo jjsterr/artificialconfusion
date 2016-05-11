@@ -86,8 +86,6 @@ local xp = dp.Experiment{
     max_epoch = 100
 }
 
-dl_dx:zero() -- make sure we start with 0 gradient
-
 print(cnn)
 xp:verbose(true)
 xp:run(dataSource) -- run the experiment
